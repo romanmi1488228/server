@@ -30,7 +30,9 @@ public class RecipeModel{
     @Column(nullable = false, name="steps")
     private String steps;
 
-
+    @Lob
+    @Basic(fetch = FetchType.LAZY)
+    private byte[] recipePicture;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="account_id", nullable = false)
