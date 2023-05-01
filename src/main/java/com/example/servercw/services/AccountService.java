@@ -70,7 +70,6 @@ public class AccountService {
                 .password(passwordEncoder.encode(request.getPassword()))
                 .role(request.getRole().equals("ADMIN") ? Role.ADMIN: request.getRole().equals("MODERATOR") ? Role.MODERATOR:Role.USER)
                 .build();
-        accountRepository.findById(id);
         accountRepository.save(account);
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -83,15 +82,47 @@ public class AccountService {
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 
-    public ResponseEntity<AccountModel> meDeleteAccount(String authHeader) {
+    public ResponseEntity<AccountModel> meDeleteAccount(String token) {
+        String jwtToken = token.substring(7);
+        String login = jwtService.extractUserLogin(jwtToken);
+        Optional<AccountModel> accountModel = accountRepository.findByLogin(login);
+        if (accountModel.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        accountRepository.deleteById(accountModel.get().getId());
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    public ResponseEntity<AccountModel> meGetAccount(String authHeader) {
-        return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity<AccountModel> meGetAccount(String token) {
+        String jwtToken = token.substring(7);
+        String login = jwtService.extractUserLogin(jwtToken);
+        Optional<AccountModel> accountModel = accountRepository.findByLogin(login);
+        if (accountModel.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        };
+        return new ResponseEntity<>(accountModel.get(), HttpStatus.OK);
     }
 
-    public ResponseEntity<AccountModel> meChangeAccount(String authHeader, PostAccountMeRequest request) {
+    public ResponseEntity<AccountModel> meChangeAccount(String token, PostAccountMeRequest request) {
+        String jwtToken = token.substring(7);
+        String login = jwtService.extractUserLogin(jwtToken);
+        Optional<AccountModel> accountModel = accountRepository.findByLogin(login);
+        if (accountModel.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        };
+        if (!accountModel.get().getLogin().equals(request.getLogin()) &&
+                accountRepository.findByLogin(request.getLogin()).isPresent()) {
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        }
+        var account = AccountModel.builder()
+                .id(accountModel.get().getId())
+                .firstName(request.getFirstName())
+                .lastName(request.getLastName())
+                .login(request.getLogin())
+                .password(passwordEncoder.encode(request.getPassword()))
+                .role(accountModel.get().getRole())
+                .build();
+        accountRepository.save(account);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

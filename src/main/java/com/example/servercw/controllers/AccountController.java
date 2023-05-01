@@ -1,4 +1,4 @@
-package com.example.servercw.requests.controllers;
+package com.example.servercw.controllers;
 
 import com.example.servercw.models.accountmodel.AccountModel;
 import com.example.servercw.requests.PostAccountAdminRequest;
