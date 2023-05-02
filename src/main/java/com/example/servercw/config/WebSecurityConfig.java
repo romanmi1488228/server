@@ -27,6 +27,7 @@ public class WebSecurityConfig {
                 .requestMatchers("/api/auth/**").permitAll()
                 .requestMatchers("/api/moderator/**").hasAnyAuthority("ADMIN", "MODERATOR")
                 .requestMatchers("/api/user/**").hasAnyAuthority("ADMIN", "MODERATOR", "USER")
+                .requestMatchers("/api/me/**").hasAnyAuthority("ADMIN", "MODERATOR", "USER")
                 .anyRequest().hasAuthority("ADMIN")
             .and()
                 .sessionManagement()
