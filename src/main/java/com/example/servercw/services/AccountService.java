@@ -22,7 +22,6 @@ public class AccountService {
     private final AccountRepository accountRepository;
     private final JwtService jwtService;
     private final PasswordEncoder passwordEncoder;
-    private final AuthenticationManager authenticationManager;
     public ResponseEntity<List<AccountModel>> adminGetAllAccount() {
         try {
             return new ResponseEntity<>(accountRepository.findAll(), HttpStatus.OK);
@@ -99,7 +98,7 @@ public class AccountService {
         Optional<AccountModel> accountModel = accountRepository.findByLogin(login);
         if (accountModel.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        };
+        }
         return new ResponseEntity<>(accountModel.get(), HttpStatus.OK);
     }
 

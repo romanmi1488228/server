@@ -4,6 +4,7 @@ import com.example.servercw.models.accountmodel.AccountModel;
 
 import com.example.servercw.models.reviewmodel.ReviewModel;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
@@ -34,9 +35,11 @@ public class RecipeModel{
     @Basic(fetch = FetchType.LAZY)
     private byte[] recipePicture;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="account_id", nullable = false)
     private AccountModel accountModel;
+
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "recipeModel")
     private List<ReviewModel> reviewModels;
