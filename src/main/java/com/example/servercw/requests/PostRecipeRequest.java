@@ -12,6 +12,6 @@ import lombok.NoArgsConstructor;
 public class PostRecipeRequest {
     private String ingredients;
     private String steps;
-    private byte[] picture;
+    private String picture;
     private long user_id;
 }

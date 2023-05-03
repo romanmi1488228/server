@@ -31,9 +31,8 @@ public class RecipeModel{
     @Column(nullable = false, name="steps")
     private String steps;
 
-    @Lob
-    @Basic(fetch = FetchType.LAZY)
-    private byte[] recipePicture;
+    @Column(name = "recipePicture", length = 100000000)
+    private String recipePicture;
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
