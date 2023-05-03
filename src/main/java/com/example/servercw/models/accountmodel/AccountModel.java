@@ -13,6 +13,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.List;
 
+/**
+ * account table model
+ */
 @Getter
 @Setter
 @Builder

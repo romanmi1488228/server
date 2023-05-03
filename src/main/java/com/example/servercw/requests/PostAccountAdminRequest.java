@@ -6,6 +6,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * request which can only be completed by admin for posting accounts
+ */
 @Data
 @Builder
 @AllArgsConstructor

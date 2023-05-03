@@ -5,6 +5,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * request for user to change info about him
+ */
 @Data
 @Builder
 @AllArgsConstructor

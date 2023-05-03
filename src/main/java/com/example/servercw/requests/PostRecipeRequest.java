@@ -5,6 +5,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * request for posting recipe
+ */
 @Data
 @Builder
 @AllArgsConstructor

@@ -14,11 +14,18 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.awt.*;
 
+/**
+ * rest controller for authentication
+ */
 @RestController
 @RequestMapping(value = "/api/auth")
 @RequiredArgsConstructor
 public class AuthenticationController {
     private final AuthenticationService authenticationService;
+
+    /**
+     * @param request
+     */
     @PostMapping(value = "/register",
                 consumes = MediaType.APPLICATION_JSON_VALUE,
                 produces = MediaType.APPLICATION_JSON_VALUE)
@@ -27,6 +34,9 @@ public class AuthenticationController {
         return ResponseEntity.ok(authenticationService.register(request));
     }
 
+    /**
+     * @param request
+     */
     @PostMapping(value = "/authenticate",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)

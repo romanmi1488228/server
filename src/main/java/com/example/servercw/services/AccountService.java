@@ -16,6 +16,9 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * service for account rest-controller
+ */
 @Service
 @RequiredArgsConstructor
 public class AccountService {
@@ -30,6 +33,9 @@ public class AccountService {
         }
     }
 
+    /**
+     * @param id
+     */
     public ResponseEntity<AccountModel> adminGetAccountById(long id) {
         Optional<AccountModel> account = accountRepository.findById(id);
         if (account.isEmpty()) {
@@ -38,6 +44,9 @@ public class AccountService {
         return new ResponseEntity<>(account.get(), HttpStatus.OK);
     }
 
+    /**
+     * @param request
+     */
     public ResponseEntity<AccountModel> adminPostAccount(PostAccountAdminRequest request) {
         if (accountRepository.findByLogin(request.getLogin()).isPresent()) {
             throw new UserExistException();
@@ -53,6 +62,10 @@ public class AccountService {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    /**
+     * @param id
+     * @param request
+     */
     public ResponseEntity<AccountModel> adminChangeAccount(long id, PostAccountAdminRequest request) {
         if (accountRepository.findById(id).isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -73,6 +86,9 @@ public class AccountService {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    /**
+     * @param id
+     */
     public ResponseEntity<AccountModel> adminDeleteAccountById(long id) {
         if (accountRepository.findById(id).isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -81,6 +97,9 @@ public class AccountService {
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 
+    /**
+     * @param token
+     */
     public ResponseEntity<AccountModel> meDeleteAccount(String token) {
         String jwtToken = token.substring(7);
         String login = jwtService.extractUserLogin(jwtToken);
@@ -92,6 +111,9 @@ public class AccountService {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    /**
+     * @param token
+     */
     public ResponseEntity<AccountModel> meGetAccount(String token) {
         String jwtToken = token.substring(7);
         String login = jwtService.extractUserLogin(jwtToken);
@@ -102,6 +124,10 @@ public class AccountService {
         return new ResponseEntity<>(accountModel.get(), HttpStatus.OK);
     }
 
+    /**
+     * @param token
+     * @param request
+     */
     public ResponseEntity<AccountModel> meChangeAccount(String token, PostAccountMeRequest request) {
         String jwtToken = token.substring(7);
         String login = jwtService.extractUserLogin(jwtToken);

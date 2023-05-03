@@ -10,6 +10,9 @@ import jakarta.validation.constraints.Min;
 import lombok.*;
 
 
+/**
+ * reviews table model
+ */
 @Getter
 @Setter
 @Builder

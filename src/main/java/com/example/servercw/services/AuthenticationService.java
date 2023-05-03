@@ -13,6 +13,9 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+/**
+ * service for authentication rest-controller
+ */
 @Service
 @RequiredArgsConstructor
 public class AuthenticationService {
@@ -21,6 +24,9 @@ public class AuthenticationService {
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
 
+    /**
+     * @param request
+     */
     public AuthenticationResponse register(RegisterRequest request) {
         if (accountRepository.findByLogin(request.getLogin()).isPresent()) {
             throw new UserExistException();
@@ -37,6 +43,9 @@ public class AuthenticationService {
         return AuthenticationResponse.builder().token(jwtToken).build();
     }
 
+    /**
+     * @param request
+     */
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(

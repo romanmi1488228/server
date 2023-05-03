@@ -9,6 +9,9 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * reviews repository
+ */
 public interface ReviewsRepository extends JpaRepository<ReviewModel, Long> {
     List<ReviewModel> findAllByAccountModel(AccountModel accountModel);
     List<ReviewModel> findAllByRecipeModel(RecipeModel recipeModel);

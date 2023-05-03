@@ -15,6 +15,9 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * service for review rest-controller
+ */
 @Service
 @RequiredArgsConstructor
 public class ReviewService {
@@ -30,6 +33,9 @@ public class ReviewService {
         }
     }
 
+    /**
+     * @param id
+     */
     public ResponseEntity<ReviewModel> userGetReviewById(long id) {
         Optional<ReviewModel> review = reviewsRepository.findById(id);
         if (review.isEmpty()) {
@@ -38,6 +44,9 @@ public class ReviewService {
         return new ResponseEntity<>(review.get(), HttpStatus.OK);
     }
 
+    /**
+     * @param recipeId
+     */
     public ResponseEntity<List<ReviewModel>> userGetAllReviewsByRecipe(long recipeId) {
         Optional<RecipeModel> recipe = recipeRepository.findById(recipeId);
         if (recipe.isEmpty()) {
@@ -50,6 +59,9 @@ public class ReviewService {
         }
     }
 
+    /**
+     * @param id
+     */
     public ResponseEntity<ReviewModel> moderatorDeleteReviewById(long id) {
         Optional<ReviewModel> review = reviewsRepository.findById(id);
         if (review.isEmpty()) {
@@ -59,6 +71,9 @@ public class ReviewService {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    /**
+     * @param authHeader
+     */
     public ResponseEntity<List<ReviewModel>> meGetAllReviews(String authHeader) {
         String jwtToken = authHeader.substring(7);
         String login = jwtService.extractUserLogin(jwtToken);
@@ -73,6 +88,10 @@ public class ReviewService {
         }
     }
 
+    /**
+     * @param authHeader
+     * @param request
+     */
     public ResponseEntity<ReviewModel> mePostReviewOnRecipe(String authHeader, PostReviewRequest request) {
         String jwtToken = authHeader.substring(7);
         String login = jwtService.extractUserLogin(jwtToken);
@@ -93,6 +112,11 @@ public class ReviewService {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
+    /**
+     * @param authHeader
+     * @param reviewId
+     * @param request
+     */
     public ResponseEntity<ReviewModel> meChangeReviewById(String authHeader, long reviewId, PostReviewRequest request) {
         String jwtToken = authHeader.substring(7);
         String login = jwtService.extractUserLogin(jwtToken);
@@ -121,6 +145,10 @@ public class ReviewService {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    /**
+     * @param authHeader
+     * @param reviewId
+     */
     public ResponseEntity<ReviewModel> meDeleteReviewById(String authHeader, long reviewId) {
         String jwtToken = authHeader.substring(7);
         String login = jwtService.extractUserLogin(jwtToken);

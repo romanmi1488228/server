@@ -13,6 +13,9 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * service for recipe rest-controller
+ */
 @Service
 @RequiredArgsConstructor
 public class RecipeService {
@@ -27,6 +30,9 @@ public class RecipeService {
         }
     }
 
+    /**
+     * @param id
+     */
     public ResponseEntity<RecipeModel> userGetRecipeById(long id) {
         Optional<RecipeModel> recipe = recipeRepository.findById(id);
         if (recipe.isEmpty()) {
@@ -35,6 +41,9 @@ public class RecipeService {
         return new ResponseEntity<>(recipe.get(), HttpStatus.OK);
     }
 
+    /**
+     * @param request
+     */
     public ResponseEntity<RecipeModel> moderatorPostRecipe(PostRecipeRequest request) {
         if (accountRepository.findById(request.getUser_id()).isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -49,6 +58,10 @@ public class RecipeService {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
+    /**
+     * @param request
+     * @param id
+     */
     public ResponseEntity<RecipeModel> moderatorChangeRecipe(PostRecipeRequest request, long id) {
         if (recipeRepository.findById(id).isEmpty() || accountRepository.findById(request.getUser_id()).isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -64,6 +77,9 @@ public class RecipeService {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    /**
+     * @param id
+     */
     public ResponseEntity<RecipeModel> moderatorDeleteRecipeById(long id) {
         if (recipeRepository.findById(id).isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -72,6 +88,9 @@ public class RecipeService {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    /**
+     * @param token
+     */
     public ResponseEntity<RecipeModel> meGetRecipes(String token) {
         String jwtToken = token.substring(7);
         String login = jwtService.extractUserLogin(jwtToken);
@@ -82,6 +101,10 @@ public class RecipeService {
         return new ResponseEntity<>(recipeRepository.findAllByAccountModel(accountModel.get()).get(), HttpStatus.OK);
     }
 
+    /**
+     * @param token
+     * @param id
+     */
     public ResponseEntity<RecipeModel> meDeleteRecipeById(String token, long id) {
         String jwtToken = token.substring(7);
         String login = jwtService.extractUserLogin(jwtToken);

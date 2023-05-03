@@ -6,6 +6,9 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
+/**
+ * account repository
+ */
 public interface AccountRepository  extends JpaRepository<AccountModel, Long> {
 
     Optional<AccountModel> findById(Long id);

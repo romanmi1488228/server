@@ -11,6 +11,9 @@ import lombok.*;
 
 import java.util.List;
 
+/**
+ * recipes table model
+ */
 @Getter
 @Setter
 @Builder

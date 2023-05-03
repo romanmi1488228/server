@@ -7,6 +7,9 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
+/**
+ * recipe repository
+ */
 public interface RecipeRepository extends JpaRepository<RecipeModel, Long> {
     Optional<RecipeModel> findById(Long id);
     Optional<RecipeModel> findAllByAccountModel(AccountModel accountModel);
